@@ -13,6 +13,7 @@ You will find my versions of the solutions inside [the Solutions folder](../Solu
 
 > [!WARNING]
 > As with all Red Hat performance-based exams, configurations must persist after reboot without intervention. Even if you do not have root, or sudo access.
+> Also, names of running containers must exactly match the name assigned in the task.
 
 ## Task 8
 

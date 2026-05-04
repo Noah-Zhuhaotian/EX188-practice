@@ -2,14 +2,16 @@ version: "3"
 services:
   redis:
     image: docker.io/library/redis
+    restart: always
+    name: redis
     networks:
       - back-end
-    restart: always
   db:
     image: docker.io/library/postgres:9.4
+    restart: always
+    name: db
     networks:
       - back-end
-    restart: always
     environment: 
       - POSTGRES_USER=postgres 
       - POSTGRES_PASSWORD=postgres 
@@ -17,38 +19,42 @@ services:
       - db-data:/var/postgres
   vote:
     image: docker.io/dockersamples/examplevotingapp_vote
+    restart: always
+    name: vote
     networks:
       - front-end
       - back-end
-    restart: always
     depends_on:
       - redis
     ports:
       - "5000:80" 
   result:
     image: docker.io/dockersamples/examplevotingapp_result
+    restart: always
+    name: result
     networks:
       - front-end
       - back-end
-    restart: always
     depends_on:
       - db
     ports:
       - "5001:80" 
   worker:
     image: docker.io/dockersamples/examplevotingapp_worker
+    restart: always
+    name: worker
     networks:
       - back-end
-    restart:
-      - always
     depends_on:
       - db
       - redis
+
 networks:
   front-end:
     driver: bridge
   back-end:
     internal: true
+
 volumes:
-  db-data:
-    driver: local
+  db-data: {}
+
